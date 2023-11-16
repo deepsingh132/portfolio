@@ -3,17 +3,27 @@
 .portfolio {
   position: relative;
 
+    .spinner {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      border-top-color: orange;
+      animation: spin 1s linear infinite;
+    }
+
   .progress {
     position: sticky;
     top: 0;
     left: 0;
-    padding-top: 50px;
+    // padding-top: 50px;
     text-align: center;
     color: orange;
+    z-index: -1;
     font-size: 36px;
 
     @include mobile {
-      font-size: 24px;
+      font-size: 20px;
       top: auto;
       bottom: 0;
     }
@@ -43,7 +53,8 @@
 
       @include mobile {
         flex-direction: column;
-        margin-top: 20px;
+        
+        margin-top: 30px;
       }
 
       .imageContainer {
@@ -55,7 +66,7 @@
 
         @include mobile {
           width: 100%;
-          max-height: 300px;
+          max-height: 250px;
         }
 
         img {
@@ -78,9 +89,11 @@
 
         @include mobile {
           transform: none !important;
-          padding: 10px;
+          padding: 0 10px;
           align-items: center;
           text-align: center;
+          margin-bottom: 70px;
+          gap: 20px;
         }
 
         h2 {

@@ -5,14 +5,14 @@ import "./portfolio.scss";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 interface Project {
-  repo: string;
+  name: string;
   forks: number;
   stars: number;
-  link: string;
+  url: string;
   language: string;
   image: string;
   description: string;
-  website: string;
+  homepageUrl: string;
 }
 
 const Single = ({ item }: { item: Project }) => {
@@ -24,13 +24,16 @@ const Single = ({ item }: { item: Project }) => {
 
   const y = useTransform(scrollYProgress, [0, 1], [-300, 300]);
 
+  function truncate(str: string, n: number) {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
 
   return (
     <section>
       <div className="container">
         <div className="wrapper">
           <div className="imageContainer" ref={ref}>
-            {item.repo === "BooksBy" && (
+            {item.name === "BooksBy" && (
               <img
                 src="https://github.com/deepsingh132/BooksBy/raw/main/Screenshots/desktophome.png"
                 width={500}
@@ -38,7 +41,7 @@ const Single = ({ item }: { item: Project }) => {
                 alt=""
               />
             )}
-            {item.repo === "Artsphere" && (
+            {item.name === "Artsphere" && (
               <img
                 src="https://github.com/deepsingh132/Artsphere/raw/main/screenshots/home.png"
                 width={500}
@@ -46,7 +49,7 @@ const Single = ({ item }: { item: Project }) => {
                 alt=""
               />
             )}
-            {item.repo === "CuChat" && (
+            {item.name === "CuChat" && (
               <img
                 src="https://github.com/deepsingh132/CuChat/raw/master/Screenshots/homepage.png"
                 style={{
@@ -56,7 +59,7 @@ const Single = ({ item }: { item: Project }) => {
                 alt=""
               />
             )}
-            {item.repo === "FaceTrace" && (
+            {item.name === "FaceTrace" && (
               <img
                 src="https://camo.githubusercontent.com/919bed350cfd4895b8dc9c035b4aa80fc4562ffe29e5a50f142e9dda088ee029/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f3430302f312a3453774d4d6944495f326d4230645971446d757655672e676966"
                 style={{
@@ -69,20 +72,20 @@ const Single = ({ item }: { item: Project }) => {
           </div>
           <motion.div className="textContainer" style={{ y }}>
             <h2>
-              {item.repo === "BooksBy" && "E-comm Platform"}
-              {item.repo === "Artsphere" && "Next.js Twitter Plus"}
-              {item.repo === "CuChat" && "X-Platform Chat App"}
-              {item.repo === "FaceTrace" && "Facial ID App"}
+              {item.name === "BooksBy" && "E-comm Platform"}
+              {item.name === "Artsphere" && "Next.js Twitter Plus"}
+              {item.name === "CuChat" && "X-Platform Chat App"}
+              {item.name === "FaceTrace" && "Facial ID App"}
             </h2>
-            <p>{item.description}</p>
+            <p>{truncate(item.description, 200)}</p>
             <p>
-              <a href={item.link} target="_blank">
-                {item.link}
+              <a href={item.url} target="_blank">
+                {item.url}
               </a>
             </p>
             <button
               onClick={() =>
-                window.open(item?.website ? item.website : item.link, "_blank")
+                window.open(item?.homepageUrl ? item.homepageUrl : item.url, "_blank")
               }
             >
               See Demo
@@ -97,18 +100,25 @@ const Single = ({ item }: { item: Project }) => {
 const Portfolio = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [screenWidth, setScreenWidth] = useState(0);
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      //TODO: api by https://github.com/egoist
-      const res = await fetch(
-        "https://gh-pinned-repos--master.deno.dev/?username=deepsingh132"
-      );
-      const data = await res.json();
-      setProjects(data);
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}`, {
+          cache: "force-cache",
+        });
+        const data = await res.json();
+        setProjects(data?.repos);
+        setFetching(false);
+      } catch (error) {
+        console.error("Error fetching projects from github", error);
+        setFetching(false);
+      }
     };
     fetchProjects();
   }, []);
+
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const { scrollYProgress } = useScroll({
@@ -142,9 +152,12 @@ const Portfolio = () => {
         </div>
       )}
 
-      {projects.map((item: any) => (
-        <Single item={item} key={item?.repo} />
+      {
+        fetching ? <div className="spinner"></div> :
+        projects.map((item: any) => (
+        <Single item={item} key={item?.name} />
       ))}
+
       {screenWidth < 768 && (
         <div className="progress">
           <h1>Featured Works</h1>
