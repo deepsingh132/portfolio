@@ -133,8 +133,6 @@ const Portfolio = () => {
     };
   }, []);
 
-  console.log(screenWidth);
-
   return (
     <div className="portfolio" ref={ref}>
       {screenWidth > 768 && (
