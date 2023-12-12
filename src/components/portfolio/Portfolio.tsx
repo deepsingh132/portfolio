@@ -83,13 +83,23 @@ const Single = ({ item }: { item: Project }) => {
                 {item.url}
               </a>
             </p>
-            <button
-              onClick={() =>
-                window.open(item?.homepageUrl ? item.homepageUrl : item.url, "_blank")
-              }
-            >
-              See Demo
-            </button>
+            {item.homepageUrl && (
+              <button>
+                <a href={item.homepageUrl} target="_blank">
+                  See Demo
+                </a>
+              </button>)
+            }
+            {
+              // for notes
+              item.name === "BooksBy" && (
+                <span>
+                  *Note:{" "}
+                  The server is hosted on render, Please wait 10-15 seconds for the instance to start.
+                </span>
+
+              )
+            }
           </motion.div>
         </div>
       </div>
