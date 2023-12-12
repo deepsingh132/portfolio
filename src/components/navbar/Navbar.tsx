@@ -16,16 +16,6 @@ const Navbar = () => {
         >
           Mandeep Singh
         </motion.span>
-        <div className="social">
-          <a href="https://x.com/thehackbaba132" target="_blank">
-            <img
-              src="/x.png"
-              width={40}
-              height={40}
-              alt=""
-            />
-          </a>
-        </div>
       </div>
     </div>
   );

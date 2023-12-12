@@ -84,10 +84,12 @@ const Single = ({ item }: { item: Project }) => {
               </a>
             </p>
             {item.homepageUrl && (
-              <button>
-                <a href={item.homepageUrl} target="_blank">
+              <button onClick={
+                () => {
+                  window.open(item.homepageUrl, "_blank");
+                }
+              }>
                   See Demo
-                </a>
               </button>)
             }
             {
