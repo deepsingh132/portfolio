@@ -69,9 +69,17 @@ const Single = ({ item }: { item: Project }) => {
                 alt=""
               />
             )}
+            {item.name === "aionair" && (
+              <img
+                src="https://raw.githubusercontent.com/deepsingh132/aionair/main/assets/screenshots/home.png"
+                style={{objectFit: "fill"}}
+                alt="AIOnAir"
+              />
+            )}
           </div>
           <motion.div className="textContainer" style={{ y }}>
             <h2>
+              {item.name === "aionair" && "OnAir.ai"}
               {item.name === "BooksBy" && "E-comm Platform"}
               {item.name === "Artsphere" && "Next.js Twitter Plus"}
               {item.name === "CuChat" && "X-Platform Chat App"}
@@ -84,22 +92,21 @@ const Single = ({ item }: { item: Project }) => {
               </a>
             </p>
             {item.homepageUrl && (
-              <button onClick={
-                () => {
+              <button
+                onClick={() => {
                   window.open(item.homepageUrl, "_blank");
-                }
-              }>
-                  See Demo
-              </button>)
-            }
+                }}
+              >
+                See Demo
+              </button>
+            )}
             {
               // for notes
               item.name === "BooksBy" && (
                 <span>
-                  *Note:{" "}
-                  The server is hosted on render, Please wait 10-15 seconds for the instance to start.
+                  *Note: The server is hosted on render, Please wait 10-15
+                  seconds for the instance to start.
                 </span>
-
               )
             }
           </motion.div>
@@ -130,6 +137,8 @@ const Portfolio = () => {
     };
     fetchProjects();
   }, []);
+
+  console.log(projects);
 
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -164,11 +173,11 @@ const Portfolio = () => {
         </div>
       )}
 
-      {
-        fetching ? <div className="spinner"></div> :
-        projects.map((item: any) => (
-        <Single item={item} key={item?.name} />
-      ))}
+      {fetching ? (
+        <div className="spinner"></div>
+      ) : (
+        projects.map((item: any) => <Single item={item} key={item?.name} />)
+      )}
 
       {screenWidth < 768 && (
         <div className="progress">
