@@ -61,7 +61,7 @@ const Single = ({ item }: { item: Project }) => {
             )}
             {item.name === "FaceTrace" && (
               <img
-                src="https://camo.githubusercontent.com/919bed350cfd4895b8dc9c035b4aa80fc4562ffe29e5a50f142e9dda088ee029/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f3430302f312a3453774d4d6944495f326d4230645971446d757655672e676966"
+                src="https://camo.githubusercontent.com/dec5588f471f03d6954b0e70c6432dc8f0c6e32da788de9910e90a193a2fa4c0/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f3430302f312a3453774d4d6944495f326d4230645971446d757655672e676966"
                 style={{
                   width: "185px",
                   height: "100%",
@@ -72,7 +72,7 @@ const Single = ({ item }: { item: Project }) => {
             {item.name === "aionair" && (
               <img
                 src="https://raw.githubusercontent.com/deepsingh132/aionair/main/assets/screenshots/home.png"
-                style={{objectFit: "fill"}}
+                style={{ objectFit: "fill" }}
                 alt="AIOnAir"
               />
             )}
