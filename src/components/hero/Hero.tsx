@@ -67,7 +67,7 @@ const Hero = () => {
         >
           <motion.h2 variants={textVariants}>MANDEEP SINGH</motion.h2>
           <motion.h1 variants={textVariants}>
-            Front-end Web developer
+            Full-stack Web Developer
           </motion.h1>
           <motion.div variants={textVariants} className="buttons">
             <motion.button variants={buttonVariants}

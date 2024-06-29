@@ -138,8 +138,6 @@ const Portfolio = () => {
     fetchProjects();
   }, []);
 
-  console.log(projects);
-
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const { scrollYProgress } = useScroll({

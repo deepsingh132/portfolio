@@ -2,7 +2,7 @@
 
 .hero {
   height: calc(100vh - 100px);
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(180deg, #0c0c1d, #111132);
   position: relative;
 
@@ -108,7 +108,7 @@
     z-index: 1;
     white-space: nowrap;
     color: #ffffff09;
-    width: 50%;
+    width: 70%;
     font-weight: bold;
   }
 
@@ -132,6 +132,10 @@
         height: 100%;
         object-fit: cover;
       }
+    }
+    .slidingTextContainer {
+      font-size: 30vh;
+      bottom: -30px;
     }
 
   }
